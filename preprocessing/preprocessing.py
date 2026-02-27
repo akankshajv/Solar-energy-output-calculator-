@@ -23,3 +23,5 @@ test_data["generated_power_kw"] = y_test.values
 
 train_data.to_csv("train_dataset.csv", index=False)
 test_data.to_csv("test_dataset.csv", index=False)
+# Updated by Amar
+# This code reads a cleaned solar dataset, selects specific features and the target variable, splits the data into training and testing sets, scales the features using MinMaxScaler, and saves the processed training and testing datasets to CSV files.
