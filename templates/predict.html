@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="card">
+    <h1>⚡ Prediction Result</h1>
+
+    <div class="result-box">
+        <h2>{{ result }} kW</h2>
+    </div>
+
+    <a href="/" class="btn">🔁 Predict Again</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar Energy AI System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="card">
+    <h1>☀ Solar Energy AI System</h1>
+    <p class="subtitle">AI-Based Solar Power Prediction Model</p>
+
+    <form action="/predict" method="POST" onsubmit="showLoader()">
+
+        <div class="input-box">
+            <label>Total Cloud Cover</label>
+            <input type="number" step="any"
+                   name="total_cloud_cover_sfc"
+                   placeholder="Enter cloud cover (0 - 1)" required>
+        </div>
+
+        <div class="input-box">
+            <label>Shortwave Radiation</label>
+            <input type="number" step="any"
+                   name="shortwave_radiation_backwards_sfc"
+                   placeholder="Enter radiation value" required>
+        </div>
+
+        <button type="submit" class="btn">
+            🚀 Start Prediction
+        </button>
+
+        <div id="loader" class="loader"></div>
+
+    </form>
+</div>
+
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+
+</body>
+</html>
