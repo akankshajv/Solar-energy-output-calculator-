@@ -2,14 +2,33 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+import os
+
+
+# Get project root directory
+current_file = os.path.abspath(__file__)
+model_folder = os.path.dirname(current_file)
+project_root = os.path.dirname(model_folder)
+
 
 # 0 in the dataset means either the radiation was below the sensor's detection limit as in night radiation is very low
 # 0 in cloud cover means clear sky, 100 means completely overcast sky.
-dataset = pd.read_csv('cleaned_solar_dataset_v2.csv')
+dataset = pd.read_csv(os.path.join(project_root, "preprocessing", "cleaned_solar_dataset_v2.csv"))
+
+
+Q1 = dataset["generated_power_kw"].quantile(0.25)
+Q3 = dataset["generated_power_kw"].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+dataset = dataset[
+    (dataset["generated_power_kw"] >= lower_bound) &
+    (dataset["generated_power_kw"] <= upper_bound)
+]
 X = dataset[["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","angle_of_incidence", "zenith"]]
-
 y = dataset["generated_power_kw"]
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
@@ -23,5 +42,5 @@ train_data["generated_power_kw"] = y_train.values
 test_data = X_test.copy()
 test_data["generated_power_kw"] = y_test.values
 
-train_data.to_csv("train_dataset.csv", index=False)
-test_data.to_csv("test_dataset.csv", index=False)
+train_data.to_csv(os.path.join(project_root, "preprocessing", "train_dataset_v2.csv"), index=False)
+test_data.to_csv(os.path.join(project_root, "preprocessing", "test_dataset_v2.csv"), index=False)
