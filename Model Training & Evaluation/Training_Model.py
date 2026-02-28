@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import joblib
 
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 
@@ -11,16 +10,12 @@ test_data = pd.read_csv("test_dataset_v2.csv")
 
 
 features = ["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence","Zenith"]
-X_train = train_data[features]
+X_train_scaled = train_data[features]
 y_train = train_data["generated_power_kw"]
 
-X_test = test_data[["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence", "Zenith"]]
+X_test_scaled = test_data[["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence", "Zenith"]]
 y_test = test_data["generated_power_kw"]
 
-
-scaler = MinMaxScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
 
 model = RandomForestRegressor(
     n_estimators=200,
