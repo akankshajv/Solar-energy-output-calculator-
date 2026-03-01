@@ -13,7 +13,7 @@ project_root = os.path.dirname(model_folder)
 
 # 0 in the dataset means either the radiation was below the sensor's detection limit as in night radiation is very low
 # 0 in cloud cover means clear sky, 100 means completely overcast sky.
-dataset = pd.read_csv(os.path.join(project_root, "preprocessing", "cleaned_solar_dataset_v2.csv"))
+dataset = pd.read_csv(os.path.join(project_root, "cleaned_synthetic_solar_dataset.csv"))
 
 
 Q1 = dataset["generated_power_kw"].quantile(0.25)
@@ -27,20 +27,20 @@ dataset = dataset[
     (dataset["generated_power_kw"] >= lower_bound) &
     (dataset["generated_power_kw"] <= upper_bound)
 ]
-X = dataset[["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","angle_of_incidence", "zenith"]]
+X = dataset[["cloud_cover", "direct_sunlight_hours", "solar_radiation", "panel_efficiency"]]
 y = dataset["generated_power_kw"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
-X_train = pd.DataFrame(X_train,columns=["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence", "Zenith"])
+X_train = pd.DataFrame(X_train,columns=["cloud_cover", "direct_sunlight_hours", "solar_radiation", "panel_efficiency"])
 
-X_test = pd.DataFrame(X_test,columns=["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence", "Zenith"])
+X_test = pd.DataFrame(X_test,columns=["cloud_cover", "direct_sunlight_hours", "solar_radiation", "panel_efficiency"])
 train_data = X_train.copy()
 train_data["generated_power_kw"] = y_train.values
 
 test_data = X_test.copy()
 test_data["generated_power_kw"] = y_test.values
 
-train_data.to_csv(os.path.join(project_root, "preprocessing", "train_dataset_v2.csv"), index=False)
-test_data.to_csv(os.path.join(project_root, "preprocessing", "test_dataset_v2.csv"), index=False)
+train_data.to_csv(os.path.join(project_root, "preprocessing", "train_dataset.csv"), index=False)
+test_data.to_csv(os.path.join(project_root, "preprocessing", "test_dataset.csv"), index=False)

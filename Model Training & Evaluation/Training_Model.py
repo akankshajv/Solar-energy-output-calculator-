@@ -14,19 +14,19 @@ current_file = os.path.abspath(__file__)
 model_folder = os.path.dirname(current_file)
 project_root = os.path.dirname(model_folder)
 
-train_path = os.path.join(project_root, "preprocessing", "train_dataset_v2.csv")
-test_path = os.path.join(project_root, "preprocessing", "test_dataset_v2.csv")
+train_path = os.path.join(project_root, "preprocessing", "train_dataset.csv")
+test_path = os.path.join(project_root, "preprocessing", "test_dataset.csv")
 
 train_data = pd.read_csv(train_path)
 test_data = pd.read_csv(test_path)
 
 
-features = ["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence","Zenith"]
+features = ["cloud_cover","direct_sunlight_hours","solar_radiation","panel_efficiency"]
 X_train = train_data[features]
 
 y_train = train_data["generated_power_kw"]
 
-X_test = test_data[["total_cloud_cover_sfc","shortwave_radiation_backwards_sfc","Angle_of_incidence", "Zenith"]]
+X_test = test_data[["cloud_cover","direct_sunlight_hours","solar_radiation","panel_efficiency"]]
 y_test = test_data["generated_power_kw"]
 
 
@@ -58,8 +58,9 @@ print("Mean Absolute Error:", mae)
 print("Mean Squared Error:", mse)
 print("RMSE:", rmse)
 print("R^2 Score:", r2)
-
-joblib.dump(model, "model.pkl")
-joblib.dump(scaler, "scaler.pkl")
+model_path = os.path.join(project_root, "model.pkl")
+scaler_path = os.path.join(project_root, "scaler.pkl")
+joblib.dump(model, model_path)
+joblib.dump(scaler, scaler_path)
 
 print("Model and Scaler saved successfully!")
