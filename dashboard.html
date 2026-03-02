@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar Energy AI System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="card">
+    <h1>Solar Energy AI System</h1>
+    <p class="subtitle">AI-Based Solar Power Prediction Model</p>
+
+    <form action="/predict" method="POST" onsubmit="showLoader()">
+
+        <div class="input-box">
+            <label>Total Cloud Cover</label>
+            <input type="number" step="any"
+                   name="cloud_cover"
+                   placeholder="Enter cloud cover in percentage (0-100)" required>
+        </div>
+        <div class="input-box">
+            <label>Sunlight Hours</label>
+            <input type="number" step="any"
+                   name="direct_sunlight_hours"
+                   placeholder="Enter direct sunlight hours" required>
+        </div>
+
+        <div class="input-box">
+            <label>Shortwave Radiation</label>
+            <input type="number" step="any"
+                   name="solar_radiation"
+                   placeholder="Enter radiation value in W/m²" required>
+        </div>
+        <div class="input-box">
+            <label>Panel Efficiency</label>
+            <input type="number" step="any"
+                   name="panel_efficiency"
+                   placeholder="Enter panel efficiency in percentage (0-100)" required>
+
+        <div class="input-box" style="text-align: center;">
+            <button type="submit" class="btn">Start Prediction</button></div>
+
+        <div id="loader" class="loader"></div>
+
+    </form>
+</div>
+
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+
+</body>
+</html>
