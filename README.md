@@ -43,7 +43,7 @@ The target variable used for prediction:
 To assess performance, multiple regression metrics were used:
 
 a)R² Score:Measures how much variance in solar power output is explained by the model.
-The final model achieved R² ≈ 0.72**, meaning it explains approximately **72% of the variation** in energy generation.
+The final model achieved R² ≈ 0.87**, meaning it explains approximately **87% of the variation** in energy generation.
 
 b)Mean Absolute Error (MAE):Represents the average absolute difference between predicted and actual power values.
 
