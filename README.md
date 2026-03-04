@@ -75,13 +75,13 @@ These files are saved inside the `preprocessing/` directory.
 
 The solar power prediction model was developed using a supervised machine learning regression approach.
 
-A Random Forest Regressorwa s selected because it:
+A Random Forest Regressor was selected because it:
 
 * Captures non-linear relationships
 * Handles feature interactions effectively
 * Reduces overfitting through ensemble learning
 
-The dataset was split into 80% training and 20% testing data using `train_test_split`.
+The dataset was split into 70% training and 30% testing data using `train_test_split`.
 The model was trained with:
 
 * n_estimators = 500
